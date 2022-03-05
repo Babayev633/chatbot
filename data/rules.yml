@@ -1,0 +1,39 @@
+rules:
+ - rule: Say goodbye anytime the user says goodbye
+   steps:
+    - intent: goodbye
+    - action: utter_goodbye
+
+ - rule: Say 'I am a bot' anytime the user challenges
+   steps:
+   - intent: bot_challenge
+   - action: utter_iamabot
+
+ - rule: Return Policy
+   steps:
+   - intent: return_policy
+   - action: utter_return_rule
+
+ - rule: activate subscribe form
+   steps:
+   - intent: subscribe
+   - action: newsletter_form
+   - active_loop: newsletter_form
+
+ - rule: Payment Policy
+   steps:
+   - intent: payment_policy
+   - action: utter_payment_rule
+
+ - rule: Delivery Policy
+   steps:
+   - intent: delivery_policy
+   - action: utter_delivery_rule
+
+ - rule: submit form
+   condition:
+   - active_loop: newsletter_form
+   steps:
+   - action: newsletter_form
+   - active_loop: null
+   - action: utter_subscribed

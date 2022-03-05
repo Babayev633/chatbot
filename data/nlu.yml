@@ -1,0 +1,195 @@
+nlu:
+- intent: greet
+  examples: |
+    - salam
+    - start
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - goodmorning
+    - good evening
+    - goodevening
+    - good afternoon
+    - goodafternoon
+    - moin
+    - hey there
+    - let's go
+    - lets go
+    - hey dude
+    - hey bot
+
+- intent: goodbye
+  examples: |
+    - sagol
+    - gorusenedek
+    - good afternoon
+    - see you
+    - see ya
+    - cu
+    - good by
+    - cee you later
+    - see you later
+    - good night
+    - bye
+    - bye-bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+
+- intent: subscribe
+  examples: |
+    - I want to get the Email-nofitications
+    - Can you send me the Email-nofitications?
+    - Can you sign me up for the Email-nofitications?
+
+- intent: inform
+  examples: |
+    - My email is example@example.com
+    - My email is example@gmail.com
+    - random@example.com
+    - random@gmail.com
+    - Please send it to anything@example.com
+    - Please send it to anything@gmail.com
+    - Email is something@example.com
+    - Email is something@gmail.com
+    
+- intent: affirm
+  examples: |
+    - yes
+    - y
+    - indeed
+    - of course
+    - that sounds good
+    - correct
+
+- intent: deny
+  examples: |
+    - no
+    - n
+    - never
+    - I don't think so
+    - don't like that
+    - no way
+    - not really
+  
+- intent: mood_great
+  examples: |
+    - perfect
+    - great
+    - amazing
+    - feeling like a king
+    - wonderful
+    - I am feeling very good
+    - I am great
+    - I am amazing
+    - I am going to save the world
+    - super stoked
+    - extremely good
+    - so so perfect
+    - so good
+    - so perfect
+  
+- intent: mood_unhappy
+  examples: |
+    - my day was horrible
+    - I am sad
+    - I don't feel very well
+    - I am disappointed
+    - super sad
+    - I'm so sad
+    - sad
+    - very sad
+    - unhappy
+    - not good
+    - not very good
+    - extremly sad
+    - so saad
+    - so sad
+
+- intent: product_available
+  examples: |
+    - do you have [laptop](pname)?
+    - is [pc](pname) available?
+    - do you have [iphone](pname) in your stock?
+
+- intent: product_quantity
+  examples: |
+    - how many [laptop](pname) do you have in stock?
+    - how much [pc](pname) do you have?
+    - how many [iphone](pname) can you sell?
+
+- intent: product_price
+  examples: |
+    - can you tell me price of [laptop](pname)?
+    - [laptop](pname) price please.
+    - price of [pc](pname)?
+    - price of [laptop](pname)
+
+- intent: product_shop
+  examples: |
+    - do you have product from [techstore](shopname)
+    - do you have product from [icomp](shopname)
+    - any [techstore](shopname) product available?
+
+- intent: delivery_charge
+  examples: |
+    - how much is the delivery fee
+    - can you tell me the delivery fee
+    - can i know the delivery fees
+
+- intent: bot_challenge
+  examples: |
+    - are you a bot?
+    - are you a human?
+    - am I talking to a bot?
+    - am I talking to a human?
+
+- intent: my_address
+  examples: |
+    - ok my address is [Azerbaijan](country)
+    - [Azerbaijan](country) is my address
+    - okay , it is [Azerbaijan](country)
+
+- intent: return_policy
+  examples: |
+    - what is you refund policy
+    - how can i return a product
+    - please tell me the way to return a product
+
+- lookup: pname
+  examples: |
+    - mango
+    - book
+    - speaker
+  
+- intent: delivery_policy
+  examples: |
+    - what is you regular delivery policy
+    - how long do you take to deliver a product
+    - please tell me how much time do you need to deliver a product
+
+- intent: payment_policy
+  examples: |
+    - what is you payment policy
+    - how can i pay for a product
+    - please tell me the way to pay for  a product\
+
+- lookup: shopname
+  examples: |
+    - ucc
+    - LG
+    - walton
+    - msi
+    - asus
+- lookup: country
+  examples: |
+    - azerbaijan
+    - canada
+    - america
+    - germany
+    - srrilanka
+    - afghanistan

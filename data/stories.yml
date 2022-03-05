@@ -1,0 +1,76 @@
+stories:
+ - story: greet and subscribe
+   steps:
+   - intent: greet
+   - action: utter_greet
+   - intent: subscribe
+   - action: newsletter_form
+   - active_loop: newsletter_form
+
+ - story: happy path
+   steps:
+   - intent: greet
+   - action: utter_greet
+   - intent: mood_great
+   - action: utter_happy
+
+ - story: sad path 1
+   steps:
+   - intent: greet
+   - action: utter_greet
+   - intent: mood_unhappy
+   - action: utter_cheer_up
+   - action: utter_did_that_help
+   - intent: affirm
+   - action: utter_happy
+
+ - story: sad path 2
+   steps:
+   - intent: greet
+   - action: utter_greet
+   - intent: mood_unhappy
+   - action: utter_cheer_up
+   - action: utter_did_that_help
+   - intent: deny
+   - action: utter_goodbye
+
+ - story: product availablity
+   steps:
+   - intent: product_available
+     entities:
+     - pname: laptop
+   - action: action_product_search
+ - story: product quantity
+   steps:
+   - intent: product_quantity
+     entities:
+     - pname: laptop
+   - action: action_product_quantity_search
+ - story: product promo
+   steps:
+   - intent: promo_available
+     entities:
+     - pname: laptop
+   - action: utter_fetch_product_promo
+ - story: product price
+   steps:
+   - intent: product_price
+     entities:
+     - pname: laptop
+   - action: action_product_price_search
+
+ - story: product from shop availablity
+   steps:
+   - intent: product_shop
+     entities:
+     - shopname: ryans
+   - action: utter_fetch_product_shop
+
+ - story: delivery info
+   steps:
+   - intent: delivery_charge
+   - action: utter_ask_address
+   - intent: my_address
+     entities:
+     - country: azerbaijan
+   - action: action_fetch_del_fee
