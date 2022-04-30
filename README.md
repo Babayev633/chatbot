@@ -1,5 +1,5 @@
-# chatbot
-chatbot for e-commerce website also connected to Telegram based on rasa. This project includes material about how correctly integrate sqlite to rasa and connect to http ports.
+# Buddy Bot
+Buddy bot is a chatbot for e-commerce website also connected to Telegram based on rasa. This project includes material about how correctly integrate sqlite to rasa and connect to http ports.
 
 READ ME
 
