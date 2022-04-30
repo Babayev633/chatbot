@@ -1,5 +1,5 @@
 # chatbot
-chatbot for e-commerce website also connected to Telegram based on rasa.
+chatbot for e-commerce website also connected to Telegram based on rasa. This project includes material about how correctly integrate sqlite to rasa and connect to http ports.
 
 READ ME
 
@@ -48,4 +48,12 @@ actions/actions.py - contains custom action/api code
 
 domain.yml - the domain file, including bot response templates
 
-productexample.db - open with sqlitestudio
+store.db - open with sqlitestudio
+
+NOTE:
+Project is not done yet.
+Future work:
+  - Work on ordering product
+  - Fixing stories ( some stories and buttonds cause bugs )
+  - Working on stable connection with port
+  - Fixin connection to Whatsapp via Twilio
