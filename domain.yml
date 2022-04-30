@@ -1,88 +1,181 @@
-version: '3.0'
+version: "3.1"
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
 intents:
-- greet:
-    use_entities: true
-- goodbye:
-    use_entities: true
-- affirm:
-    use_entities: true
-- deny:
-    use_entities: true
-- mood_great:
-    use_entities: true
-- mood_unhappy:
-    use_entities: true
-- bot_challenge:
-    use_entities: true
-- product_available:
-    use_entities:
-    - pname
-- promo_available:
-    use_entities:
-    - pname
-- product_quantity:
-    use_entities:
-    - pname
-- product_price:
-    use_entities:
-    - pname
-- product_shop:
-    use_entities:
-    - shopname
-- my_address:
-    use_entities:
-    - country
-- delivery_charge:
-    use_entities: true
-- return_policy:
-    use_entities: true
-- payment_policy:
-    use_entities: true
-- delivery_policy:
-    use_entities: true
+  # simple intents
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - express_gratitude
+  # Additional Help intents
+  - choice_additionalHelp
+  - choice_noMoreHelp
+  # "Are you a bot?"" challange
+  - bot_challenge
+  # [1 button] Open presentation intents
+  - choice_open_ppt
+  # [2 button] Infrom about eCommerce
+  - choice_inform_about_eCommerce
+  - faq
+  # [3 button] Search product
+  - search_product
+  - psearch_form
+  - choice_search_pname
+  - search_category
+  # [4 button] Register
+  - register
+
+  # [Custom input] Chit Chats
+  - chitchat
+  - out_of_scope
+
 entities:
 - pname
-- shopname
-- country
-slots: {}
+- category
+
+slots:
+  pname:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: pname
+
+  category:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: category
+
+forms: 
+  psearch_form:
+    ignored_intents:
+    - chitchat
+    - out_of_scope
+    required_slots:
+    - pname
+  csearch_form:
+    ignored_intents:
+    - chitchat
+    - out_of_scope
+    required_slots:
+    - category
+
 responses:
-  utter_greet:
-  - text: Hey! How are you?
-  utter_cheer_up:
-  - image: https://i.imgflip.com/67bbvh.jpg
-    text: 'Here is something to cheer you up:'
-  utter_did_that_help:
-  - text: Did that help you?
-  utter_happy:
-  - text: Great, carry on!
+  # Simple responses
+  utter_TypeHello:
+  - text: Say Hello to start conversation!
+  utter_welcome:
+  - text: Welcome to our website!
   utter_goodbye:
-  - text: Bye
-  utter_iamabot:
-  - text: I am a bot, powered by Rasa.
-  utter_fetch_product_promo:
-  - text: no ,no promoavailable .
-  utter_fetch_product_shop:
-  - text: yes sir we have what you need.
-  utter_ask_address:
-  - text: ok may i know your address.
-  utter_answer_fee:
-  - text: it is 150 azn only sir.
-  utter_return_rule:
-  - text: if the product is damaged and clear footage of unpackaging is provied only then a product can be returned.
-  utter_payment_rule:
-  - text: you can pay for a product via bkash or nagad.
-  utter_delivery_rule:
-  - text: we deliver our products in 7 working days
-actions:
-- action_product_search
-- action_product_price_search
-- action_product_quantity_search
-- action_fetch_del_fee
-
-forms: {}
+  - text: Good shopping on eCommerce, see you soon!
+  utter_forwardedToWebPage:
+  - text: Opening corresponding webpage...
   
+  # Additional Help response
+  utter_askAdditionalHelp:
+  - buttons:
+    - payload: /choice_additionalHelp
+      title: I need more help
+    - payload: /choice_noMoreHelp
+      title: I don't need help anymore
+    text: Do you need more help?
+  
+  # "Are you a bot?"" challange
+  utter_bot_challenge:
+  - text: I am a eAssistant, eCommerce's official chatbot! I was developed by Parviz Babazada and powered by Rasa.
+  
+  # How can I help you menu
+  utter_howCanIhelpYou:
+  - buttons:
+    - payload: /choice_open_ppt
+      title: Presentation about Project
+    - payload: /choice_inform_about_eCommerce
+      title: Inform me about the company
+    - payload: /choice_search_pname
+      title: Search product by name
+    - payload: /order
+      title: Order Product
+    - payload: /Cancelorder
+      title: Cancel Order
+    text: 'Tell me which of these options would you like me to help you with:'
+  
+  # [2 button] Infrom about eCommerce
+  utter_inform_about_eCommerce:
+  - buttons:
+    - payload: General information
+      title: General information
+    - payload: About the creator
+      title: About the creator
+    - payload: Customer service number
+      title: Customer service number
+    - payload: Time of creation
+      title: Time of creation
+    text: What do you want to know exactly about the company?
 
-e2e_actions: {}
+  utter_faq/eCommerce_info:
+  - text: eCommerce is a website template created by ADA university SDP team to show how to concretely integrate a chatbot.
+  utter_faq/creator:
+  - text: The creator of this chatbot is Parviz Babazada. He is
+      currently finishing his Bachelor of Science in Computer Science and is
+      in his 3th year.
+  utter_faq/customer_service_number:
+  - text: The customer service number is (+994)99-633-66-33.
+  utter_faq/when_was_eCommerce_created:
+  - text: This website was created at the end of April 2022 (beta version).
+
+
+  # [3 button ] Search product
+  utter_whichproduct:
+  - text: which product you want to search for?
+
+  # [4 button ] Register
+  utter_which_register:
+  - buttons:
+    - payload: /register_customer
+      title: Register as customer
+    - payload: /register_seller
+      title: Register as Seller
+    text: You want to register as Customer or Seller?
+
+  # Feedback 
+  utter_beforeYouGo:
+  - text: 1 minute please before you go
+
+  utter_askToProvideFeedback:
+  - buttons:
+    - payload: /choice_goodFeedback
+      title: Good
+    - payload: /choice_badFeedback
+      title: Bad
+    text: What did you think of your chat experience with me in general? Your feedback
+      will help me improve myself in the future.
+
+  utter_feedbackProvided:
+  - text: Thanks for the feedback!
+
+# Chit Chat responses
+  utter_chitchat/ask_name:
+  - text: I am called Buddy Bot!
+  utter_chitchat/ask_how_you_are:
+  - text: I am fine thank you for asking!
+  utter_chitchat/ask_languages_bot:
+  - text: I only speak and understand English for the moment, but I will learn Azerbaijani in the near future.
+  utter_chitchat/ask_time:
+  - text: It is the time it was yesterday at the same hour ;)
+  utter_out_of_scope/non_english:
+  - text: I only understand English at the moment, I'm sorry.
+  utter_out_of_scope/other:
+  - text: I was not designed to answer this question.
+  utter_rephrase:
+  - text: Please, rephrase your sentence, I'm not sure I understood.
+
+actions:
+- action_ppt
+- action_searchpname
+- action_register_customer
+- action_register_seller
+- action_searchcategory
+
+
