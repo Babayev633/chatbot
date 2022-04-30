@@ -1,76 +1,75 @@
+version: "3.1"
+
 stories:
- - story: greet and subscribe
-   steps:
-   - intent: greet
-   - action: utter_greet
-   - intent: subscribe
-   - action: newsletter_form
-   - active_loop: newsletter_form
 
- - story: happy path
-   steps:
-   - intent: greet
-   - action: utter_greet
-   - intent: mood_great
-   - action: utter_happy
+# [1 button] Show presentation
+- story: Open presentation webpage
+  steps:
+  - intent: greet
+  - action: utter_welcome
+  - action: utter_howCanIhelpYou
+  - intent: choice_open_ppt
+  - action: action_ppt
+  - action: utter_askAdditionalHelp
 
- - story: sad path 1
-   steps:
-   - intent: greet
-   - action: utter_greet
-   - intent: mood_unhappy
-   - action: utter_cheer_up
-   - action: utter_did_that_help
-   - intent: affirm
-   - action: utter_happy
+- story: Open presentation webpage [After being asked for additional help]
+  steps:
+  - intent: choice_additionalHelp
+  - action: utter_howCanIhelpYou
+  - intent: choice_open_ppt
+  - action: action_ppt
+  - action: utter_askAdditionalHelp
 
- - story: sad path 2
-   steps:
-   - intent: greet
-   - action: utter_greet
-   - intent: mood_unhappy
-   - action: utter_cheer_up
-   - action: utter_did_that_help
-   - intent: deny
-   - action: utter_goodbye
+# [2 button] Ecommerce FAQ
+- story: Inform me about eCommerce
+  steps:
+  - intent: greet
+  - action: utter_welcome
+  - action: utter_howCanIhelpYou
+  - intent: choice_inform_about_eCommerce
+  - action: utter_inform_about_eCommerce
+  - intent: faq
+  - action: utter_faq
+  - action: utter_askAdditionalHelp
 
- - story: product availablity
-   steps:
-   - intent: product_available
-     entities:
-     - pname: laptop
-   - action: action_product_search
- - story: product quantity
-   steps:
-   - intent: product_quantity
-     entities:
-     - pname: laptop
-   - action: action_product_quantity_search
- - story: product promo
-   steps:
-   - intent: promo_available
-     entities:
-     - pname: laptop
-   - action: utter_fetch_product_promo
- - story: product price
-   steps:
-   - intent: product_price
-     entities:
-     - pname: laptop
-   - action: action_product_price_search
+- story: Inform me about eCommerce [After being asked for additional help]
+  steps:
+  - intent: choice_additionalHelp
+  - action: utter_howCanIhelpYou
+  - intent: choice_inform_about_eCommerce
+  - action: utter_inform_about_eCommerce
+  - intent: faq
+  - action: utter_faq
+  - action: utter_askAdditionalHelp
 
- - story: product from shop availablity
-   steps:
-   - intent: product_shop
-     entities:
-     - shopname: ryans
-   - action: utter_fetch_product_shop
+# [3 button] Product search (By name)
+- story: Search Product
+  steps:
+  - intent: greet
+  - action: utter_welcome
+  - action: utter_howCanIhelpYou
+  - intent: choice_search_pname
+  - slot_was_set:
+    - requested_slot: pname
+  - slot_was_set:
+    - pname: apple
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
 
- - story: delivery info
-   steps:
-   - intent: delivery_charge
-   - action: utter_ask_address
-   - intent: my_address
-     entities:
-     - country: azerbaijan
-   - action: action_fetch_del_fee
+
+- story: Happy path 2 [v2] - Search product by name [After being asked for additional help]
+  steps:
+  - action: utter_howCanIhelpYou
+  - intent: choice_search_pname
+  - slot_was_set:
+    - requested_slot: pname
+  - slot_was_set:
+    - pname: apple
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+
+# [4 button] Register
+
+# Feedback

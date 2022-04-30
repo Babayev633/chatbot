@@ -1,39 +1,102 @@
+version: "3.1"
+
 rules:
- - rule: Say goodbye anytime the user says goodbye
-   steps:
+
+
+- rule: Respond "How can I help you?" whenever the user chooses the "Additional help" button or says "Yes" (after each happy path)
+  steps:
+  - or:
+    - intent: choice_additionalHelp
+    - intent: affirm
+  - action: utter_howCanIhelpYou
+
+# Say goodbye / End coversation / Feedback
+- rule: Respond "Do you want to provide feedback?" whenever the user chooses the "No more help" button or says "No" or says "Bye" (after each happy path)
+  steps:
+  - or:
+    - intent: choice_noMoreHelp
+    - intent: deny
     - intent: goodbye
-    - action: utter_goodbye
+  - action: utter_beforeYouGo
+  - action: utter_askToProvideFeedback
 
- - rule: Say 'I am a bot' anytime the user challenges
-   steps:
-   - intent: bot_challenge
-   - action: utter_iamabot
+- rule: Respond "Goodbye" whenever the user says "Bye" or "No" or says again "No more help" after we propose him to provide feedback (after each happy path)
+  steps:
+  - action: utter_askToProvideFeedback
+  - or:
+    - intent: deny
+    - intent: goodbye
+    - intent: choice_noMoreHelp
+  - action: utter_goodbye
 
- - rule: Return Policy
-   steps:
-   - intent: return_policy
-   - action: utter_return_rule
+- rule: Says "goodbye" after "thanks for the feedback" (from Happy path 0)
+  steps:
+  - action: utter_feedbackProvided
+  - action: utter_goodbye
 
- - rule: activate subscribe form
-   steps:
-   - intent: subscribe
-   - action: newsletter_form
-   - active_loop: newsletter_form
+# "Are you a bot?"" challange
+- rule: Say "I am a bot" anytime the user challenges
+  steps:
+  - intent: bot_challenge
+  - action: utter_bot_challenge
+  - action: utter_askAdditionalHelp
 
- - rule: Payment Policy
-   steps:
-   - intent: payment_policy
-   - action: utter_payment_rule
+ #[1 button] Show presentation
 
- - rule: Delivery Policy
-   steps:
-   - intent: delivery_policy
-   - action: utter_delivery_rule
+# [2 button] Ecommerce FAQ
+- rule: Respond to FAQs (from happy path 1.1)
+  steps:
+  - intent: faq
+  - action: utter_faq
+  - action: utter_askAdditionalHelp
 
- - rule: submit form
-   condition:
-   - active_loop: newsletter_form
-   steps:
-   - action: newsletter_form
-   - active_loop: null
-   - action: utter_subscribed
+# [3 button] Product search (By name)
+
+- rule: activate product name search api
+  steps:
+  - intent: search_product
+  - action: action_searchpname
+
+- rule: activate category search api
+  steps:
+  - intent: search_category
+  - action: action_searchcategory
+
+- rule: Activate product search form
+  steps:
+  - intent: utter_whichproduct
+  - action: psearch_form
+  - active_loop: psearch_form
+  
+- rule: Submit product search form
+  condition:
+  - active_loop: psearch_form
+  steps:
+  - action: psearch_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_searchpname
+  - action: utter_askAdditionalHelp
+
+
+# [4 button] Registration 
+# [Custom input] Chit Chats
+- rule: Respond to chitchat
+  steps:
+  - intent: chitchat
+  - action: utter_chitchat
+  - action: utter_askAdditionalHelp
+  
+- rule: Respond to out_of_scope
+  steps:
+  - intent: out_of_scope
+  - action: utter_out_of_scope
+  - action: utter_askAdditionalHelp
+
+#feedback
+- rule: Provide feedback with buttons
+  steps:
+  - action: askToProvideFeedback
+  - action: utter_feedbackProvided
+  - action: utter_goodbye
