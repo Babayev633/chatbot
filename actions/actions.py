@@ -1,100 +1,109 @@
-# This files contains your custom actions which can be used to run
-# custom Python code.
-#
-# See this guide on how to implement these action:
-# https://rasa.com/docs/rasa/custom-actions
+from asyncore import dispatcher
+from typing import Any, Text, Dict, List, Union
 
-from typing import Any, Text, Dict, List
+
 from rasa_sdk import Action, Tracker
+from rasa_sdk.events import EventType
 from rasa_sdk.executor import CollectingDispatcher
-import sqlite3
 
-path_to_db = "actions/productexample.db"
+from urllib import response
+import urllib.parse
+import urllib.request
+import webbrowser
+import json
+import ast
+
+import sqlite3
+path_to_db = "actions/store.db"
+
+class ActionPPT(Action):
+    def name(self) -> Text:
+        return "action_ppt"
+    
+    async def run(
+        self,
+        despatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict[Text, Any]]:
+        webpage_url="https://sdpecommerceproject.wixsite.com/ecommerceplatform"
+        webbrowser.open(webpage_url)
+        return[]
+
 
 class ActionProductSearch(Action):
 
     def name(self) -> Text:
-        return "action_product_search"
+        return "action_searchpname"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+            domain: Dict[Text, Any]) -> Dict[Text, Any]:
 
         connection = sqlite3.connect(path_to_db)
         cursor = connection.cursor()
 
-        shoe= [tracker.latest_message['entities'][0]['value']]
+        result = tracker.get_slot("pname")
+        con = sqlite3.connect(path_to_db)
+        cursor = con.cursor()
+        
+        cursor.execute('SELECT * FROM Products WHERE name=?', (result,))
+        rows = cursor.fetchall()
+        dispatcher.utter_message(text = 'Found these products: \n')
+        for row in rows:
+            id = row[0]
+            name = row[1]
+            category = row[2]
+            price = row[3]
+            amount = row[4]
+            description = row[5]
+            delivery_fee = row[6] 
+            print(row)
+            text1 = "\nID: " + str(id) + "\n  Name: " + str(name) + "\n  Category: " + str(category) + "\n  Price: " + str(price) + "₼\n  Amount: " + str(amount) + "\n  Description: " + str(description) + "\n  Delivery fee: " + str(delivery_fee) + "\n\n"
 
-        cursor.execute("SELECT * FROM inventory WHERE pname=? ", shoe)
-        data_row = cursor.fetchone()
+            dispatcher.utter_message(str(text1))
+            dispatcher.utter_message(image= row[7])
 
-        if data_row:
-          dispatcher.utter_message(text="Found!")
-        else:
-          dispatcher.utter_message(text="Not Available!")  
+        return[]
 
-class ActionProductPriceSearch(Action):
+class ActionCategorySearch(Action):
 
     def name(self) -> Text:
-        return "action_product_price_search"
+        return "action_searchcategory"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+            domain: Dict[Text, Any]) -> Dict[Text, Any]:
 
         connection = sqlite3.connect(path_to_db)
         cursor = connection.cursor()
 
-        pname= [tracker.latest_message['entities'][0]['value']]
+        result = tracker.get_slot("category")
+        con = sqlite3.connect(path_to_db)
+        cursor = con.cursor()
+        
+        cursor.execute('SELECT * FROM Products WHERE category=?', (result,))
+        rows = cursor.fetchall()
+        dispatcher.utter_message(text = 'Found these products by category: ' + str(result) + '\n')
+        for row in rows:
+            id = row[0]
+            name = row[1]
+            category = row[2]
+            price = row[3]
+            amount = row[4]
+            description = row[5]
+            delivery_fee = row[6] 
+            print(row)
+            text1 = "\nID: " + str(id) + "\n  Name: " + str(name) + "\n  Category: " + str(category) + "\n  Price: " + str(price) + "₼\n  Amount: " + str(amount) + "\n  Description: " + str(description) + "\n  Delivery fee: " + str(delivery_fee) + "\n\n"
 
-        cursor.execute("SELECT price FROM inventory WHERE pname=? ", pname)
-        data_row = cursor.fetchone()
+            dispatcher.utter_message(str(text1))
+            dispatcher.utter_message(image= row[7])
 
-        if data_row:
-          dispatcher.utter_message("Price of "+ str(pname[0]) +" is "+str(data_row[0]))
-        else:
-          dispatcher.utter_message(text="Not Available!")  
+        return[]
 
-class ActionProductQuantitySearch(Action):
 
-    def name(self) -> Text:
-        return "action_product_quantity_search"
+        
 
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        connection = sqlite3.connect(path_to_db)
-        cursor = connection.cursor()
 
-        pname= [tracker.latest_message['entities'][0]['value']]
-
-        cursor.execute("SELECT amount FROM inventory WHERE pname=? ", pname)
-        data_row = cursor.fetchone()
-
-        if data_row:
-          dispatcher.utter_message("We currently  have "+str(data_row[0]) +" units of " + str(pname[0]))
-        else:
-          dispatcher.utter_message(text="Not Available!") 
-
-class ActionProductDeliveryFeeSearch(Action):
-
-    def name(self) -> Text:
-        return "action_fetch_del_fee"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
-        connection = sqlite3.connect(path_to_db)
-        cursor = connection.cursor()
-
-        address= [tracker.latest_message['entities'][0]['value']]
-
-        cursor.execute("SELECT Fee FROM Delivery WHERE address=? ", address)
-        data_row = cursor.fetchone()
-
-        if data_row:
-          dispatcher.utter_message("The Delivery fee is "+str(data_row[0]) +" Manats " )
-        else:
-          dispatcher.utter_message(text="Not Available!") 
+# python -m rasa run actions 
