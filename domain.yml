@@ -30,6 +30,7 @@ intents:
   # [Custom input] Chit Chats
   - chitchat
   - out_of_scope
+  - ask_time
 
 entities:
 - pname
@@ -93,14 +94,19 @@ responses:
       title: Presentation about Project
     - payload: /choice_inform_about_eCommerce
       title: Inform me about the company
-    - payload: /choice_search_pname
-      title: Search product by name
-    - payload: /order
-      title: Order Product
-    - payload: /Cancelorder
-      title: Cancel Order
+    # uncommend if activate search via db to activate forms
+    #- payload: /choice_search_pname
+    #  title: Search product by name
+    #- payload: /order
+    #  title: Order Product
+    #- payload: /Cancelorder
+    #  title: Cancel Order
     text: 'Tell me which of these options would you like me to help you with:'
   
+  # [1 button] Introduction ppt
+  utter_presentationppt:
+  - text: Here is the link to our Project Presentation {link}
+
   # [2 button] Infrom about eCommerce
   utter_inform_about_eCommerce:
   - buttons:
@@ -162,8 +168,6 @@ responses:
   - text: I am fine thank you for asking!
   utter_chitchat/ask_languages_bot:
   - text: I only speak and understand English for the moment, but I will learn Azerbaijani in the near future.
-  utter_chitchat/ask_time:
-  - text: It is the time it was yesterday at the same hour ;)
   utter_out_of_scope/non_english:
   - text: I only understand English at the moment, I'm sorry.
   utter_out_of_scope/other:
@@ -177,5 +181,7 @@ actions:
 - action_register_customer
 - action_register_seller
 - action_searchcategory
-
+- action_searchapi
+- utter_presentationppt
+- action_time
 
