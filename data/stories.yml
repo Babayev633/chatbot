@@ -43,6 +43,8 @@ stories:
   - action: utter_askAdditionalHelp
 
 # [3 button] Product search (By name)
+
+# For search via forms with internal database (not in use) 
 - story: Search Product
   steps:
   - intent: greet
@@ -57,7 +59,7 @@ stories:
     - requested_slot: null
   - active_loop: null
 
-
+# For search via forms with internal database (not in use)
 - story: Happy path 2 [v2] - Search product by name [After being asked for additional help]
   steps:
   - action: utter_howCanIhelpYou

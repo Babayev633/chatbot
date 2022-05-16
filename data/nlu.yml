@@ -1,7 +1,6 @@
 version: "3.1"
 
 nlu:
-
 # Simple intents
 - intent: affirm
   examples: |
@@ -987,9 +986,6 @@ nlu:
     - date of foundation of the shop
     - date of foundation of the boutique
 
-# [3 button] Search product 
-
-
 # search by name
 - intent: choice_search_pname
   examples: |
@@ -1000,6 +996,16 @@ nlu:
 - intent: search_product
   examples: |
     - search [alma](pname)
+    - search [samsung galaxy S22](pname)
+    - search [samsung S21](pname)
+    - search [iphone 5S](pname)
+    - search [samsung earphone](pname)
+    - search [epson L805](pname)
+    - search [desk](pname)
+    - search [apple macbook pro](pname)
+    - search [qulaqciq](pname)
+    - search [ayaqqabi](pname)
+    - search [papaq](pname)
     - search [Desktop Lenovo](pname)
     - search [Xiaomi Mi Band](pname)
     - search [Lenovo Tab M10](pname)
@@ -1007,13 +1013,46 @@ nlu:
     - search [Apple Watch Series 7](pname)
     - search [Desktop HP](pname)
     - do you have [iphone 11](pname)?
+    - do you have [papaq](pname)?
+    - do you have [ayaqqabi](pname)?
+    - do you have [epson L805](pname)?
+    - do you have [qulaqciq](pname)?
+    - do you have [samsung earphone](pname)?
+    - do you have [iphone 5S](pname)?
+    - do you have [desk](pname)?
+    - do you have [samsung galaxy S22](pname)?
+    - do you have [samsung S21](pname)?
     - is [orange](pname) available?
+    - is [black](pname) available?
+    - is [white](pname) available?
+    - is [yellow](pname) available?
     - do you have [iphone](pname) in your stock?
+    - do you have [iphone 5S](pname) in your stock?
+    - do you have [samsung](pname) in your stock?
+    - do you have [samsung galaxy S22](pname) in your stock?
+    - do you have [lenova](pname) in your stock?
+    - do you have [desk](pname) in your stock?
+    - do you have [qulaqciq](pname) in your stock?
+    - do you have [ayaqqabi](pname) in your stock?
+    - do you have [earphone](pname) in your stock?
     - search a product [samsung](pname)
+    - search a product [apple macbook pro](pname)
+    - search a product [epson L805](pname)
+    - search a product [samsung s21](pname)
+    - search a product [iphone 11](pname)
+    - search a product [samsung s22](pname)
     - search a product [iphone 11 pro](pname) please
+    - search a product [iphone 11](pname) please
+    - search a product [samsung](pname) please
     - search a product [apple watch](pname) for me
     - search a product [iPad](pname) for me please
     - i want to search [apple 13](pname)
+    - i want to search [samsung S22](pname)
+    - i want to search [samsung](pname)
+    - i want to search [samsung s21](pname)
+    - i want to search [qulaqciq](pname)
+    - i want to search [papaq](pname)
+    - i want to search [desk](pname)
     - i want to search [apple 13 Pro](pname) please
     - i want to search [orange](pname) pls
     - inform me about [LENOVO Legion 5](pname)
@@ -1035,7 +1074,9 @@ nlu:
     - inform me about [apple](pname) pls
     - inquire me about [apple](pname) pls
     - i want to be informed about [xiamoi](pname)
+    - i want to be informed about [apple](pname)
     - i want to be inquired about [apple](pname)
+    - i want to be inquired about [xiaomi](pname)
     - i want to be informed about [apple](pname) please
     - i want to be inquired about [apple](pname) please
     - i want to be informed about [apple](pname) pls
@@ -1057,7 +1098,6 @@ nlu:
     - category [Laptop](category)
     - category [Tablet](category)
 
- 
 # [4 button] Register
 - intent: register
   examples: |
@@ -1072,13 +1112,6 @@ nlu:
     - Can't find registration page for customer
     - Where I can Register as customer?
     - Where is customer registration page?
-
-
-
-
-
-# [] Custom text
-
 
 # [Custom input] Chit Chats
 - intent: chitchat/ask_name
@@ -1335,7 +1368,7 @@ nlu:
     - we cant converse in [french](language)?
     - can we converse in [french](language)?
     - Do you speak [italian](language)?
-- intent: chitchat/ask_time
+- intent: ask_time
   examples: |
     - can you give me the time?
     - can you tell me the time?

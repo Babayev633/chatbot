@@ -52,16 +52,22 @@ rules:
 
 # [3 button] Product search (By name)
 
+    #with api
 - rule: activate product name search api
   steps:
   - intent: search_product
-  - action: action_searchpname
+  - action: action_searchapi
+  - action: utter_askAdditionalHelp
 
+    # website's api should be corrected as search is validated with id, not actual name
+    # use rule if activated search via internal database
 - rule: activate category search api
   steps:
   - intent: search_category
   - action: action_searchcategory
+  - action: utter_askAdditionalHelp
 
+  # form use with internal db
 - rule: Activate product search form
   steps:
   - intent: utter_whichproduct
@@ -82,6 +88,13 @@ rules:
 
 # [4 button] Registration 
 # [Custom input] Chit Chats
+
+- rule: Respond to time call
+  steps:
+  - intent: ask_time
+  - action: action_time
+  - action: utter_askAdditionalHelp
+
 - rule: Respond to chitchat
   steps:
   - intent: chitchat
