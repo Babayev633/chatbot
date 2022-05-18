@@ -22,7 +22,7 @@ function restartConversation() {
 function action_trigger() {
 	// send an event to the bot, so that bot can start the conversation by greeting the user
 	$.ajax({
-		url: `http://localhost:5055/webhook`,
+		url: `https://0ca3-185-26-185-83.eu.ngrok.io/webhooks/rest/webhook`,
 		type: "POST",
 		contentType: "application/json",
 		data: JSON.stringify({ "name": action_name, "policy": "MappingPolicy", "confidence": "0.98" }),
@@ -108,7 +108,7 @@ function scrollToBottomOfResults() {
 //============== send user message to rasa server =============================================
 function send(message) {
 	$.ajax({
-		url: "http://localhost:5005/webhooks/rest/webhook",
+		url: "https://0ca3-185-26-185-83.eu.ngrok.io/webhooks/rest/webhook",
 		type: "POST",
 		contentType: "application/json",
 		data: JSON.stringify({ message: message, sender: user_id }),
