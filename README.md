@@ -34,8 +34,10 @@ rasa run -m models --enable-api --cors "*" --debug
 Run custom actions:
 rasa run actions -vv
 
-For Telegram integration I used hgrok
+For Telegram and Web integration in project used ngrok
+For telegram you should add credentials for it to credentials.yml
 More information you can find on official rasa docs
+For Web integration in static/js/script.js you should add url endpoint of ngrok server
 
 Overview of the files
 data/stories.yml - contains stories
@@ -48,7 +50,7 @@ actions/actions.py - contains custom action/api code
 
 domain.yml - the domain file, including bot response templates
 
-store.db - open with sqlitestudio
+store.db - open with sqlitestudio (if used integral database)
 
 NOTE:
 Project is not done yet.
